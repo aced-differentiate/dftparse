@@ -1,9 +1,11 @@
+"""Base parser class."""
+
 
 class BlockParser(object):
-    """Parser built on rules that parse blocks of input"""
+    """Parser built on rules that parse blocks of input."""
 
     def __init__(self, rules=[]):
-        """Create a BlockParser, pre-loading a set of rules"""
+        """Create a BlockParser, pre-loading a set of rules."""
         self.rules = []
         for rule in rules:
             self.add_rule(rule)
@@ -13,7 +15,7 @@ class BlockParser(object):
         self.rules.append(rule)
 
     def parse(self, generator):
-        """Parse an iterable source of strings into a generator"""
+        """Parse an iterable source of strings into a generator."""
         gen = iter(generator)
         for line in gen:
             block = {}

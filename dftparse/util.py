@@ -1,5 +1,8 @@
-def remove_empty(iter_of_dicts):
-    """Remove empty dictionaries from an iterable of dicts
+"""General-purpose utilities to work with parsed data structures."""
+
+
+def remove_empty_dicts(iter_of_dicts):
+    """Remove empty dictionaries from an iterable of dicts.
 
     :param iter_of_dicts: iterable of dicts
     :return: iterable with empty dicts removed
@@ -8,7 +11,7 @@ def remove_empty(iter_of_dicts):
 
 
 def transpose_list(list_of_dicts):
-    """Transpose a list of dicts to a dict of lists
+    """Transpose a list of dicts to a dict of lists.
 
     :param list_of_dicts: to transpose, as in the output from a parse call
     :return: Dict of lists
