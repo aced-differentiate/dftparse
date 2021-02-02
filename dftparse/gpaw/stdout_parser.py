@@ -158,6 +158,16 @@ def _parse_run_date(line, lines):
     return {"run_date": " ".join(line.strip().split()[1:])}
 
 
+def _parse_mp_k_mesh(line, lines):
+    """Parse the Monkhorst Pack k-mesh used.
+
+    Sample section of stdout:
+    16 k-points: 4 x 4 x 1 Monkhorst-Pack grid
+    """
+    toks = line.strip().split(":")[1].strip().split("Monkhorst-Pack grid")[0].strip()
+    return {"mp_k_mesh": tuple(map(int, toks.split(" x ")))}
+
+
 base_rules = [
     (lambda x: "|__ |  _|___|_____|" in x, _parse_gpaw_version),
     (lambda x: "User: " in x, _parse_username),
@@ -172,6 +182,7 @@ base_rules = [
     (lambda x: "Timing: " in x, _parse_timings),
     (lambda x: "Memory usage: " in x, _parse_memory_usage),
     (lambda x: "Date: " in x, _parse_run_date),
+    (lambda x: "Monkhorst-Pack" in x, _parse_mp_k_mesh),
 ]
 
 
