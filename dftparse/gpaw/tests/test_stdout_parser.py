@@ -275,6 +275,22 @@ Date: Tue Sep  1 21:39:47 2020
         self.assertEqual(results[0]["run_date"], "Tue Sep 1 17:16:57 2020")
         self.assertEqual(results[1]["run_date"], "Tue Sep 1 21:39:47 2020")
 
+    def test_mp_k_mesh(self):
+        raw_stdout = """
+16 k-points: 4 x 4 x 1 Monkhorst-Pack grid
+6 k-points in the irreducible part of the Brillouin zone
+       k-points in crystal coordinates                weights
+   0:     0.12500000   -0.12500000    0.00000000          2/16
+   1:     0.12500000    0.12500000    0.00000000          2/16
+   2:     0.37500000   -0.37500000    0.00000000          2/16
+   3:     0.37500000   -0.12500000    0.00000000          4/16
+   4:     0.37500000    0.12500000    0.00000000          4/16
+   5:     0.37500000    0.37500000    0.00000000          2/16
+"""
+        lines = raw_stdout.split("\n")
+        results = [r for r in self.parser.parse(lines) if r]
+        self.assertEqual(results[0]["mp_k_mesh"], (4, 4, 1))
+
 
 if __name__ == "__main__":
     unittest.main()
