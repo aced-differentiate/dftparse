@@ -168,6 +168,15 @@ def _parse_mp_k_mesh(line, lines):
     return {"mp_k_mesh": tuple(map(int, toks.split(" x ")))}
 
 
+def _parse_xc(line, lines):
+    """Parse the Exchange Correlation Functional used.
+
+    Sample section of stdout:
+    Using the BEEF-vdW Exchange-Correlation functional
+    """
+    return {"xc": line.split()[2]}
+
+
 base_rules = [
     (lambda x: "|__ |  _|___|_____|" in x, _parse_gpaw_version),
     (lambda x: "User: " in x, _parse_username),
@@ -183,6 +192,7 @@ base_rules = [
     (lambda x: "Memory usage: " in x, _parse_memory_usage),
     (lambda x: "Date: " in x, _parse_run_date),
     (lambda x: "Monkhorst-Pack" in x, _parse_mp_k_mesh),
+    (lambda x: "Exchange-Correlation" in x, _parse_xc),
 ]
 
 
