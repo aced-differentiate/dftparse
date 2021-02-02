@@ -292,5 +292,21 @@ Date: Tue Sep  1 21:39:47 2020
         self.assertEqual(results[0]["mp_k_mesh"], (4, 4, 1))
 
 
+    def test_parse_xc(self):
+        raw_stdout = """
+Hamiltonian:
+  XC and Coulomb potentials evaluated on a 80*80*328 grid
+  Using the BEEF-vdW Exchange-Correlation functional
+  Interpolation: tri-quintic (5. degree polynomial)
+  Poisson solver: FastPoissonSolver using
+    8*3+1=25 point O(h^6) finite-difference Laplacian stencil;
+    FFT axes: [0, 1];
+    FST axes: [2].
+"""
+        lines = raw_stdout.split("\n")
+        results = [r for r in self.parser.parse(lines) if r]
+        self.assertEqual(results[0]["xc"], "BEEF-vdW")
+
+
 if __name__ == "__main__":
     unittest.main()
