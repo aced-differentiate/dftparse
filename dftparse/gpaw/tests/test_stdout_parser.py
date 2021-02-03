@@ -308,5 +308,16 @@ Hamiltonian:
         self.assertEqual(results[0]["xc"], "BEEF-vdW")
 
 
+    def test_parse_dipole_correction(self):
+        raw_stdout = """
+Dipole correction along z-axis
+
+XC parameters: BEEF-vdW with 2 nearest neighbor stencil
+"""
+        lines = raw_stdout.split("\n")
+        results = [r for r in self.parser.parse(lines) if r]
+        self.assertTrue(results[0]["dipole_correction"])
+
+
 if __name__ == "__main__":
     unittest.main()
