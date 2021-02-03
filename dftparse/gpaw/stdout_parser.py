@@ -177,6 +177,15 @@ def _parse_xc(line, lines):
     return {"xc": line.split()[2]}
 
 
+def _parse_dipole_correction(line, lines):
+    """Parse if a dipole correction was applied
+
+    Sample section of stdout:
+    Dipole correction along z-axis
+    """
+    return {"dipole_correction": True}
+
+
 base_rules = [
     (lambda x: "|__ |  _|___|_____|" in x, _parse_gpaw_version),
     (lambda x: "User: " in x, _parse_username),
@@ -193,6 +202,7 @@ base_rules = [
     (lambda x: "Date: " in x, _parse_run_date),
     (lambda x: "Monkhorst-Pack" in x, _parse_mp_k_mesh),
     (lambda x: "Exchange-Correlation" in x, _parse_xc),
+    (lambda x: "Dipole correction" in x, _parse_dipole_correction),
 ]
 
 
